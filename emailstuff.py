@@ -26,5 +26,3 @@ def send_email(body):
         smtp.login(email_sender, email_password)
         smtp.sendmail(email_sender, email_receiver, em.as_string())
     print('Sent email to' + email_receiver)
-
-send_email(body)
