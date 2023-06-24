@@ -9,6 +9,8 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
+from emailstuff import send_email
+
 # If modifying these scopes, delete the file token.json.
 SCOPES = ['https://www.googleapis.com/auth/calendar']
 
@@ -49,6 +51,7 @@ def main():
             print('No upcoming events found.')
             return
         print(events[0].get('summary'))
+        send_email(events[0].get('summary'))
         # Prints the start and name of the next 10 events
         #for event in events:
         #    start = event['start'].get('dateTime', event['start'].get('date'))
