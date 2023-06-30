@@ -2,7 +2,6 @@ from __future__ import print_function
 
 import datetime
 import os.path
-import json
 
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
@@ -11,8 +10,7 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
 from emailstuff import send_email
-
-
+from event import Event
 
 # If modifying these scopes, delete the file token.json.
 SCOPES = ['https://www.googleapis.com/auth/calendar']
@@ -62,6 +60,7 @@ def main():
             if userInput == '1':
                 send_email(events[0].get('summary'))
             if userInput == '2':
+                event_info = Event()
                 event = {
                     'summary': 'Google I/O 2015',
                     'location': '800 Howard St., San Francisco, CA 94103',
@@ -76,14 +75,13 @@ def main():
                     }
                 }
                 event = service.events().insert(calendarId='primary', body=event).execute()
-                #print ('Event created: %s') % (event.get('htmlLink'))
                 print('Event was created')
             print('Menu:\n'
             '1. Send test email with subject + body\n'
             '2. Add a test event to the calendar')
             userInput = input('-> ')
-
-        # aryPrints the start and name of the next 10 events
+        print("Exiting program...")
+        #Prints the start and name of the next 10 events
         #for event in events:
         #    start = event['start'].get('dateTime', event['start'].get('date'))
         #    print(start, event['summary'])
@@ -94,3 +92,6 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+
+
